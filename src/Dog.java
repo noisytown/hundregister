@@ -23,7 +23,6 @@ public class Dog {
     }
 
     public Dog(String name, String breed, int age, int weight, Owner owner){
-        this.owner = owner;
         if(name == null || name.trim().isEmpty()){
             throw new IllegalArgumentException("namn kan inte vara null/tomt.");
         }
@@ -33,6 +32,11 @@ public class Dog {
         if(weight < 0 || age < 0){
             throw new IllegalArgumentException("ålder eller vikt kan inte vara negativt.");
         }
+        this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        this.breed = breed.substring(0, 1).toUpperCase() + breed.substring(1).toLowerCase();
+        this.age = age;
+        this.weight = weight;
+        this.owner = owner;
     }
     
     public String getName(){
@@ -43,16 +47,28 @@ public class Dog {
     }
      public boolean setOwner(Owner newOwner){
         if (owner == newOwner){
-            return false; // gör så inget ändras
+            return false; //  inget ändras
         }
-        if (owner == null){
+
+        if (owner == null){ 
             owner = newOwner;
+            newOwner.addDog(this);
             return true;
         }
-        if(owner != null){
-            owner = newOwner;
-            return true;
+
+        if(owner != null){ // ta bort gamla ägaren
+           Owner oldOwner = owner;
+           owner = null;
+           oldOwner.removeDog(this);
         }
+
+        owner = newOwner; // återställ den från null först
+
+        if(owner != null && !newOwner.ownsDog(this)){ //lägg till den nya
+            
+            newOwner.addDog(this);
+        }
+
         return true;
     }
 
@@ -85,7 +101,12 @@ public class Dog {
         }
         return tailLength;
     }
+
+    @Override
     public String toString(){
+        if(owner != null){
+            return getName() +" "+ getBreed() +" "+ getAge() +" "+ getWeight() +" "+ getTailLength() +" "+ owner.getName();
+        }
         return getName() +" "+ getBreed() +" "+ getAge() +" "+ getWeight() +" "+ getTailLength();
     }
 
