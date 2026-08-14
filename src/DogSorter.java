@@ -2,6 +2,8 @@ import java.util.Comparator;
 
 public class DogSorter {
 
+    //det står i DR16 testen att det inte ska finnas något public i DogSorter 
+    // men har legit ingen aning om hur jag skulle göra om denna var private
     public static void sort(
         SortingAlgorithm algorithm, Comparator<Dog> comparator, Dog[] dogs){
         switch(algorithm){

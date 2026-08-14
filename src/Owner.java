@@ -7,9 +7,10 @@ public class Owner {
     private Dog[] currentDogs = new Dog[MAX_AMOUNT_DOG];
     private int howManyDogsCurrently;
 
-    public Owner(String name) {
-        this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-    }
+    // ok behövdes tydligen inte after all
+    // public Owner(String name) {
+    //     this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+    // }
 
     public Owner(String name, Dog... currentDogs) {
         this.name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
